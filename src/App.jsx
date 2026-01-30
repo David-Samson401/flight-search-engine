@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 
 // Components
 import Header from "./components/layout/Header";
@@ -11,8 +11,8 @@ import PriceTrendChart from "./components/charts/PriceTrendChart";
 import FlightResults from "./components/results/FlightResults";
 import { ToastContainer, useToast } from "./components/ui/Toast";
 
-// Data
-import { trendData, mockFlights } from "./data/mockData";
+// Services
+import { searchFlights, transformFlightOffer } from "./services/amadeus";
 
 // Default filter values
 const defaultFilters = {
@@ -25,6 +25,9 @@ const defaultFilters = {
 export default function App() {
   // Toast notifications
   const { toasts, removeToast, success, error } = useToast();
+
+  // Ref for scrolling to results
+  const flightResultsRef = useRef(null);
 
   // Search state
   const [search, setSearch] = useState({
@@ -66,6 +69,28 @@ export default function App() {
   const availableAirlines = useMemo(() => {
     const airlines = new Set(flights.map((f) => f.airline || f.airlineName));
     return Array.from(airlines).filter(Boolean);
+  }, [flights]);
+
+  // Generate graph data from flights
+  const graphData = useMemo(() => {
+    if (!flights || flights.length === 0) {
+      // Return empty placeholder data to keep graph visible
+      return [
+        { name: "—", price: 0 },
+        { name: "—", price: 0 },
+        { name: "—", price: 0 },
+        { name: "—", price: 0 },
+        { name: "—", price: 0 },
+        { name: "—", price: 0 },
+        { name: "—", price: 0 },
+      ];
+    }
+
+    // Map first 12 flights to graph format with explicit number conversion
+    return flights.slice(0, 12).map((flight, index) => ({
+      name: flight.airline || flight.airlineCode || `Flight ${index + 1}`,
+      price: Number(parseFloat(flight.price)) || 0,
+    }));
   }, [flights]);
 
   // Apply filters and sorting to flights
@@ -171,7 +196,7 @@ export default function App() {
     setSearchError(null);
   };
 
-  // Search action (simulated for now - will use Amadeus API later)
+  // Search action using Amadeus API
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -189,20 +214,64 @@ export default function App() {
     setIsLoading(true);
     setSearchError(null);
     setHasSearched(true);
+    setFlights([]);
 
-    // Simulate API call delay
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Map cabin class to Amadeus format
+      const travelClassMap = {
+        Economy: "ECONOMY",
+        "Premium Economy": "PREMIUM_ECONOMY",
+        Business: "BUSINESS",
+        First: "FIRST",
+      };
 
-      // For now, use mock data (will replace with Amadeus API)
-      setFlights(mockFlights);
-      success(
-        "Search Complete",
-        `Found ${mockFlights.length} flights from ${search.origin} to ${search.destination}`,
+      // Call Amadeus API
+      const response = await searchFlights(
+        search.origin,
+        search.destination,
+        search.date,
+        {
+          returnDate: tripType === "Round Trip" ? search.returnDate : undefined,
+          adults: travelers.adults,
+          children: travelers.children || undefined,
+          infants: travelers.infants || undefined,
+          travelClass: travelClassMap[cabinClass],
+          max: 50,
+        },
       );
+
+      // Transform flight offers to app format
+      const transformedFlights = response.data.map((offer) =>
+        transformFlightOffer(offer, response.dictionaries),
+      );
+
+      setFlights(transformedFlights);
+
+      if (transformedFlights.length > 0) {
+        success(
+          "Search Complete",
+          `Found ${transformedFlights.length} flights from ${search.origin} to ${search.destination}`,
+        );
+
+        // Scroll to flight results after a short delay for state to update
+        setTimeout(() => {
+          flightResultsRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 300);
+      } else {
+        setSearchError("No flights found for your search criteria.");
+      }
     } catch (err) {
-      setSearchError("Failed to search for flights. Please try again.");
-      error("Search Failed", "An error occurred while searching for flights.");
+      console.error("Search error:", err);
+      setSearchError(
+        err.message || "Failed to search for flights. Please try again.",
+      );
+      error(
+        "Search Failed",
+        err.message || "An error occurred while searching for flights.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -251,18 +320,20 @@ export default function App() {
           />
 
           <section className="lg:col-span-9 space-y-8">
-            <PriceTrendChart data={trendData} />
-            <FlightResults
-              flights={filteredAndSortedFlights}
-              isLoading={isLoading}
-              hasSearched={hasSearched}
-              error={searchError}
-              searchQuery={search}
-              sortBy={sortBy}
-              onSortChange={setSortBy}
-              onReset={handleResetSearch}
-              onRetry={handleRetry}
-            />
+            <PriceTrendChart data={graphData} />
+            <div ref={flightResultsRef} className="scroll-mt-4">
+              <FlightResults
+                flights={filteredAndSortedFlights}
+                isLoading={isLoading}
+                hasSearched={hasSearched}
+                error={searchError}
+                searchQuery={search}
+                sortBy={sortBy}
+                onSortChange={setSortBy}
+                onReset={handleResetSearch}
+                onRetry={handleRetry}
+              />
+            </div>
           </section>
         </div>
 
