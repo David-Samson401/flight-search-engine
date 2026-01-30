@@ -15,6 +15,7 @@ export default function SearchSection({
   cabinClass,
   setCabinClass,
   onSearch,
+  isLoading,
 }) {
   return (
     <section className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 mb-8">
@@ -32,7 +33,13 @@ export default function SearchSection({
         />
       </div>
 
-      <SearchForm search={search} setSearch={setSearch} onSearch={onSearch} />
+      <SearchForm
+        search={search}
+        setSearch={setSearch}
+        onSearch={onSearch}
+        tripType={tripType}
+        isLoading={isLoading}
+      />
     </section>
   );
 }
