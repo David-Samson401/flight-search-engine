@@ -106,7 +106,7 @@ export default function SearchForm({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full h-[50px] bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-200/50 flex items-center justify-center"
+            className="w-full h-12.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-200/50 flex items-center justify-center"
           >
             {isLoading ? (
               <Loader2 size={20} className="animate-spin" />

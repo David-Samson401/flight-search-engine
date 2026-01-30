@@ -57,7 +57,7 @@ export function Toast({
     <div
       className={`${style.bg} ${style.border} border rounded-xl p-4 shadow-lg flex items-start gap-3 min-w-[320px] max-w-md animate-slide-in`}
     >
-      <Icon className={`${style.iconColor} flex-shrink-0 mt-0.5`} size={20} />
+      <Icon className={`${style.iconColor} shrink-0 mt-0.5`} size={20} />
       <div className="flex-1">
         {title && <p className={`font-semibold ${style.textColor}`}>{title}</p>}
         {message && (
@@ -85,38 +85,6 @@ export function ToastContainer({ toasts, onClose }) {
       ))}
     </div>
   );
-}
-
-// Custom hook for managing toasts
-export function useToast() {
-  const [toasts, setToasts] = React.useState([]);
-
-  const addToast = (toast) => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { ...toast, id }]);
-    return id;
-  };
-
-  const removeToast = (id) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
-
-  const success = (title, message) =>
-    addToast({ type: "success", title, message });
-  const error = (title, message) => addToast({ type: "error", title, message });
-  const warning = (title, message) =>
-    addToast({ type: "warning", title, message });
-  const info = (title, message) => addToast({ type: "info", title, message });
-
-  return {
-    toasts,
-    addToast,
-    removeToast,
-    success,
-    error,
-    warning,
-    info,
-  };
 }
 
 export default Toast;

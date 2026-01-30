@@ -112,7 +112,7 @@ export default function FlightCard({ flight, isCheapest, isBestDeal }) {
         </div>
 
         {/* Price Section */}
-        <div className="text-right border-l border-slate-100 pl-6 min-w-[120px]">
+        <div className="text-right border-l border-slate-100 pl-6 min-w-30">
           <p className="text-2xl font-black">${flight.price}</p>
           <p className="text-[10px] text-slate-400 font-medium">per person</p>
           <button

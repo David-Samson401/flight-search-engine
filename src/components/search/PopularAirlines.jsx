@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ChevronRight } from "lucide-react";
 
 // Airline data array with display names and logo filenames
@@ -57,7 +57,7 @@ export function PopularAirlinesCompact({
           <button
             key={airline.name}
             onClick={() => onAirlineSelect(airline.name)}
-            className={`flex items-center gap-2 px-3 py-1.5 bg-white border rounded-full hover:border-blue-400 hover:shadow-sm transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0 ${
+            className={`flex items-center gap-2 px-3 py-1.5 bg-white border rounded-full hover:border-blue-400 hover:shadow-sm transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
               selectedAirline === airline.name
                 ? "border-blue-500 ring-2 ring-blue-200"
                 : "border-gray-200"

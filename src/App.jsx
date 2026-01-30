@@ -9,7 +9,8 @@ import PopularAirlines, {
 import FiltersPanel from "./components/filters/FiltersPanel";
 import PriceTrendChart from "./components/charts/PriceTrendChart";
 import FlightResults from "./components/results/FlightResults";
-import { ToastContainer, useToast } from "./components/ui/Toast";
+import { ToastContainer } from "./components/ui/Toast";
+import { useToast } from "./hooks/useToast";
 
 // Services
 import { searchFlights, transformFlightOffer } from "./services/amadeus";

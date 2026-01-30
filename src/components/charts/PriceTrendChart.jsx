@@ -45,7 +45,9 @@ export default function PriceTrendChart({ data }) {
               tickLine={false}
               axisLine={false}
               tickFormatter={(value) => `$${value}`}
-              domain={hasValidData ? ["dataMin - 50", "dataMax + 50"] : [0, 1000]}
+              domain={
+                hasValidData ? ["dataMin - 50", "dataMax + 50"] : [0, 1000]
+              }
               width={60}
             />
             <Tooltip
@@ -55,7 +57,10 @@ export default function PriceTrendChart({ data }) {
                 boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)",
                 padding: "12px 16px",
               }}
-              formatter={(value) => [`$${Number(value).toLocaleString()}`, "Price"]}
+              formatter={(value) => [
+                `$${Number(value).toLocaleString()}`,
+                "Price",
+              ]}
               labelFormatter={(label) => label}
             />
             <Line
