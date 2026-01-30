@@ -9,7 +9,7 @@ A modern, responsive flight search application built with React and powered by t
 
 ---
 
-## 🚀 Features
+##  Features
 
 - **Real-time Flight Search** - Search flights using the Amadeus API test environment
 - **Interactive Price Chart** - Visualize price comparisons across airlines with Recharts
@@ -25,7 +25,7 @@ A modern, responsive flight search application built with React and powered by t
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Category             | Technology                              |
 | -------------------- | --------------------------------------- |
@@ -149,7 +149,7 @@ The app will be available at `http://localhost:5173`
 
 ---
 
-## 🔧 Available Scripts
+##  Available Scripts
 
 | Command           | Description              |
 | ----------------- | ------------------------ |
@@ -160,7 +160,7 @@ The app will be available at `http://localhost:5173`
 
 ---
 
-## 🌐 API Integration
+##  API Integration
 
 This app uses the **Amadeus Flight Offers Search API** (test environment).
 
@@ -189,7 +189,7 @@ The API response is transformed to include:
 
 ---
 
-## 🎨 UI Components
+##  UI Components
 
 ### Core Components
 
@@ -207,9 +207,9 @@ The API response is transformed to include:
 
 ---
 
-## 🔒 Security Note
+##  Security Note
 
-⚠️ **Important**: This is a frontend-only application. API keys with `VITE_` prefix are exposed in the browser bundle.
+ **Important**: This is a frontend-only application. API keys with `VITE_` prefix are exposed in the browser bundle.
 
 **For production deployment**, you should:
 
@@ -220,7 +220,7 @@ The API response is transformed to include:
 
 ---
 
-## 📱 Responsive Design
+##  Responsive Design
 
 The app is fully responsive with breakpoints:
 
@@ -230,7 +230,7 @@ The app is fully responsive with breakpoints:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -238,21 +238,16 @@ The app is fully responsive with breakpoints:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 Built with ❤️ using React, Tailwind CSS, and the Amadeus API.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Amadeus for Developers](https://developers.amadeus.com/) - Flight data API
 - [Recharts](https://recharts.org/) - Charting library
