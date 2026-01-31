@@ -1,5 +1,6 @@
 import React from "react";
 import { Search, ArrowRightLeft, Loader2 } from "lucide-react";
+import AirportInput from "./AirportInput";
 
 export default function SearchForm({
   search,
@@ -22,18 +23,12 @@ export default function SearchForm({
     <form onSubmit={onSearch} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
         {/* Origin */}
-        <div className="md:col-span-3 flex flex-col gap-1">
-          <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">
-            Origin
-          </label>
-          <input
-            type="text"
-            placeholder="e.g. JFK"
-            className="p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-medium uppercase"
+        <div className="md:col-span-3">
+          <AirportInput
             value={search.origin}
-            onChange={(e) =>
-              setSearch({ ...search, origin: e.target.value.toUpperCase() })
-            }
+            onChange={(value) => setSearch({ ...search, origin: value })}
+            placeholder="e.g. JFK"
+            label="Origin"
           />
         </div>
 
@@ -50,21 +45,12 @@ export default function SearchForm({
         </div>
 
         {/* Destination */}
-        <div className="md:col-span-3 flex flex-col gap-1">
-          <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">
-            Destination
-          </label>
-          <input
-            type="text"
-            placeholder="e.g. LHR"
-            className="p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-medium uppercase"
+        <div className="md:col-span-3">
+          <AirportInput
             value={search.destination}
-            onChange={(e) =>
-              setSearch({
-                ...search,
-                destination: e.target.value.toUpperCase(),
-              })
-            }
+            onChange={(value) => setSearch({ ...search, destination: value })}
+            placeholder="e.g. LHR"
+            label="Destination"
           />
         </div>
 
