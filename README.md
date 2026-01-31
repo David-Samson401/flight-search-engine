@@ -1,4 +1,5 @@
 # ✈️ SpotterFlights - Flight Search Engine
+[🔗 Live Demo](https://flight-search-engine-sandy.vercel.app/)
 
 A modern, responsive flight search application built with React and powered by the Amadeus API. Features real-time flight data, interactive price visualization, and advanced filtering capabilities.
 
@@ -120,7 +121,7 @@ flight-search-engine/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/flight-search-engine.git
+git clone https://github.com/David-Samson401/flight-search-engine.git
 cd flight-search-engine
 ```
 
